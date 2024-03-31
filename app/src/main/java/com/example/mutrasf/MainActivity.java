@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, signup.class);
                 startActivity(intent);
             }
-            //xxx
+            //xxxxxxxxxxxx
         });
     }
 }
