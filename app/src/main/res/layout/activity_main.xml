@@ -23,7 +23,7 @@
         app:srcCompat="@drawable/foodtruck" />
 
     <Button
-        android:id="@+id/Registerbtn"
+        android:id="@+id/login"
         android:layout_width="362dp"
         android:layout_height="55dp"
         android:layout_marginBottom="112dp"
@@ -39,7 +39,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/SignUpbtn"
+        android:id="@+id/signup"
         android:layout_width="353dp"
         android:layout_height="52dp"
         android:layout_marginBottom="48dp"
