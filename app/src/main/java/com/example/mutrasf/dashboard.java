@@ -59,7 +59,7 @@ public class dashboard extends AppCompatActivity {
         //Intent intent = getIntent();
         //String userEmail = intent.getStringExtra("userEmail");
 
-        Cursor cursor = db.getMYdata();
+        Cursor cursor = db.getFoodTrucks();
 
         if (cursor.getCount() == 0) {
             Toast.makeText(this, "No vehicle for rent", Toast.LENGTH_SHORT).show();

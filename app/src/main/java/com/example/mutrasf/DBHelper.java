@@ -25,10 +25,10 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CONTACT_PHONE = "Contact_phone";
 
 
-    // Wishlist table and its columns -To have good performance when retrieving into Wishlist Page
+    // PriceContactimg table and its columns -To have good performance when retrieving into PriceContactimg Page
     public static final String TABLE_WISHLIST = "Wishlist";
     public static final String COLUMN_WISHLIST_ID = "ID";
-    public static final String COLUMN_FOODTRUCK_ID = "FoodTruckId"; // referring to the FoodTruck Id in FOODTRUCK table to know which food truck is in Wishlist
+    public static final String COLUMN_FOODTRUCK_ID = "FoodTruckId"; // referring to the FoodTruck Id in FOODTRUCK table to know which food truck is in PriceContactimg
     public static final String COLUMN_FOODWISHLIST_NAME = "FoodTruckName";
     public static final String COLUMN_FOODWISHLIST_PHOTO = "FoodTruckPhoto";
 
@@ -150,7 +150,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_CONTACT_PHONE, 552340975);
         DB.insert(TABLE_FOODTRUCK, null, values);
 
-        // To create Wishlist table
+        // To create PriceContactimg table
         String createWishlistTableQuery = "CREATE TABLE " + TABLE_WISHLIST + "("
                 + COLUMN_WISHLIST_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_FOODTRUCK_ID + " INTEGER,"
@@ -334,6 +334,13 @@ public class DBHelper extends SQLiteOpenHelper {
         return foodTrucks;
     }
 
+    public Cursor getFoodTrucks() {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_FOODTRUCK , null);
+        return cursor;
+    }
+
     // retrieve All reservations
     public List<ReservationObject> getAllReservation(int userID) {
         List<ReservationObject> reservations = new ArrayList<>();
@@ -355,7 +362,6 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // retrieve All foodtrucks in wishlist
-
     public List<WishlistObject> getAllFoodTrucksWishList() {
         List<WishlistObject> foodTrucksWishList = new ArrayList<>();
         String queryString = "SELECT * FROM " + TABLE_WISHLIST;
@@ -374,12 +380,6 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return foodTrucksWishList;
-    }
-    public Cursor getMYdata() {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_FOODTRUCK , null);
-        return cursor;
     }
     // retrieve user name to present it in the dashboard page
     public String GetUserName(int userID){
