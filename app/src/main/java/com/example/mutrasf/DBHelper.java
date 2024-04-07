@@ -361,6 +361,17 @@ public class DBHelper extends SQLiteOpenHelper {
         return reservations;
     }
 
+    public Cursor getMYreservation(int userId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_RESERVATION +
+                " INNER JOIN " + TABLE_FOODTRUCK +
+                " ON " + TABLE_RESERVATION + "." +  COLUMN_TRUCK_ID +
+                " = " + TABLE_FOODTRUCK + "." +  COLUMN_ID +
+                " WHERE " + TABLE_RESERVATION + "." + COLUMN_USERID + "=?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+        return cursor;
+    }
+
     // retrieve All foodtrucks in wishlist
     public List<WishlistObject> getAllFoodTrucksWishList() {
         List<WishlistObject> foodTrucksWishList = new ArrayList<>();
@@ -390,8 +401,23 @@ public class DBHelper extends SQLiteOpenHelper {
             userName = cursor.getString(3);
         }
         cursor.close();
-        DB.close();
         return userName;
+    }
+
+    public int getUserIdFromName(String userName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + COLUMN_USER_ID + " FROM " + TABLE_USER +
+                " WHERE " + COLUMN_PHONE_NUMBER + "=?";
+        Cursor cursor = db.rawQuery(query, new String[]{userName});
+
+        int userId = -1; // Default value if user ID is not found
+
+        if (cursor.moveToFirst()) {
+            userId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_USER_ID));
+        }
+
+        cursor.close();
+        return userId;
     }
 
 

@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,11 +33,15 @@ public class dashboard extends AppCompatActivity {
 
     RecyclerView recycler;
     TruckAdapter adapter;
+    TextView userNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        Intent intent = getIntent();
+        String userName = intent.getStringExtra("UserName");
 
         recycler = findViewById(R.id.recycler);
         db = new DBHelper(this);
@@ -45,6 +50,10 @@ public class dashboard extends AppCompatActivity {
         phone = new ArrayList<>();
         id = new ArrayList<>();
         //photo = new ArrayList<>();
+        int userId = db.getUserIdFromName(userName);
+        String userName1 = db.GetUserName(userId);
+        userNameTextView = findViewById(R.id.HelloText);
+        userNameTextView.setText("Hi "+ userName1);
 
         //adapter = new TruckAdapter(this, name, price, photo, phone, id);
         adapter = new TruckAdapter(this, name, price, phone, id);
@@ -62,7 +71,7 @@ public class dashboard extends AppCompatActivity {
         Cursor cursor = db.getFoodTrucks();
 
         if (cursor.getCount() == 0) {
-            Toast.makeText(this, "No vehicle for rent", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No food truck to reserve", Toast.LENGTH_SHORT).show();
             return;
         } else {
             while (cursor.moveToNext()) {
@@ -79,4 +88,24 @@ public class dashboard extends AppCompatActivity {
             }
         }
     }
+
+    /*
+    Button getUsernameButton = findViewById(R.id.get_username_button);
+
+
+getUsernameButton.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        int userID = 123; // Replace with the actual user ID you want to retrieve the name for
+        String userName = GetUserName(userID);
+
+        // Update the TextView with the retrieved username
+        userNameTextView.setText(userName);
+    }
+});
+        Intent intent = getIntent();
+        String userEmail = intent.getStringExtra("UserName");
+        TextView userNameTextView = findViewById(R.id.HelloText);
+        userNameTextView.setText(userName);
+     */
 }

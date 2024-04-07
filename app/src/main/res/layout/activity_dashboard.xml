@@ -8,11 +8,10 @@
     android:background="@drawable/dashboard">
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/HelloText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Hi, Hend"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
