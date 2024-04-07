@@ -36,7 +36,7 @@ public class login1 extends AppCompatActivity {
                     if (check==true){
                         Toast.makeText(login1.this, "Sign in successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), dashboard.class);
-                        intent.putExtra( "UserName",user);
+                        intent.putExtra( "phoneNumber",user);
                         startActivity(intent);
                     } else {
                         Toast.makeText(login1.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();

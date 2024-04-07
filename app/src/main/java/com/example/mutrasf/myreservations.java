@@ -59,7 +59,7 @@ public class myreservations extends AppCompatActivity {
     private void displayData() {
         //Intent intent = getIntent();
         //String userEmail = intent.getStringExtra("userEmail");
-        int userId = db.getUserIdFromName("UserName");
+        int userId = db.getUserIdFromName("phoneNumber");
 
         Cursor cursor = db.getMYreservation(userId);
 

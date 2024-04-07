@@ -41,7 +41,7 @@ public class dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         Intent intent = getIntent();
-        String userName = intent.getStringExtra("UserName");
+        String userName = intent.getStringExtra("phoneNumber");
 
         recycler = findViewById(R.id.recycler);
         db = new DBHelper(this);

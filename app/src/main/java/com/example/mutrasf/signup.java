@@ -47,7 +47,7 @@ public class signup extends AppCompatActivity {
                         // Redirect to dashboard activity
                         Toast.makeText(signup.this, "Registered successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), dashboard.class);
-                        intent.putExtra( "UserName",name);
+                        intent.putExtra( "phoneNumber",phoneNumber);
                         startActivity(intent);
 //                        finish(); // Optional: Close the sign-up activity to prevent going back to it
                     } else {
