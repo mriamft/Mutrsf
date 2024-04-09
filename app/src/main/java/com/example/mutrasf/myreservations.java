@@ -10,6 +10,10 @@ package com.example.mutrasf;
         import androidx.recyclerview.widget.GridLayoutManager;
         import androidx.recyclerview.widget.LinearLayoutManager;
         import androidx.recyclerview.widget.RecyclerView;
+        import android.content.Intent;
+        import android.view.MenuItem;
+        import androidx.annotation.NonNull;
+        import androidx.appcompat.app.AppCompatActivity;
 
         import android.annotation.SuppressLint;
         import android.content.DialogInterface;
@@ -25,6 +29,8 @@ package com.example.mutrasf;
         import android.text.Editable;
 
 
+        import com.google.android.material.bottomnavigation.BottomNavigationView;
+
         import java.util.ArrayList;
 
 public class myreservations extends AppCompatActivity {
@@ -36,12 +42,35 @@ public class myreservations extends AppCompatActivity {
 
     RecyclerView recycler;
     TruckAdapter adapter;
+    private BottomNavigationView bottomNavigationView;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myreservations);
+        bottomNavigationView = findViewById(R.id.nav);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.homemenu) {
+                    startActivity(new Intent(myreservations.this, dashboard.class));
+                    return true;
+                } else if (item.getItemId() == R.id.wishlist) {
+                    startActivity(new Intent(myreservations.this, wishlist.class));
+                    return true;
+                } else if (item.getItemId() == R.id.my_reservations) {
+                    startActivity(new Intent(myreservations.this, myreservations.class));
+                    return true;
+                } else if (item.getItemId() == R.id.logout) {
+                    // Handle logout menu item click
+                    // Perform logout actions
+                    return true;
+                }
+                return false;
+
+            }
+        });
 
         EditText searchText = findViewById(R.id.searchtext);
 

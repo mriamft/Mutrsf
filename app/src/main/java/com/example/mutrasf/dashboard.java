@@ -11,6 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,6 +40,7 @@ public class dashboard extends AppCompatActivity {
     RecyclerView recycler;
     TruckAdapter adapter;
     TextView userNameTextView;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +49,30 @@ public class dashboard extends AppCompatActivity {
 
         Intent intent = getIntent();
         String userName = intent.getStringExtra("phoneNumber");
+
+        bottomNavigationView = findViewById(R.id.navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.homemenu) {
+                    startActivity(new Intent(dashboard.this, dashboard.class));
+                    return true;
+                } else if (item.getItemId() == R.id.wishlist) {
+                    startActivity(new Intent(dashboard.this, wishlist.class));
+                    return true;
+                } else if (item.getItemId() == R.id.my_reservations) {
+                    startActivity(new Intent(dashboard.this, myreservations.class));
+                    return true;
+                } else if (item.getItemId() == R.id.logout) {
+                    // Handle logout menu item click
+                    // Perform logout actions
+                    return true;
+                }
+                return false;
+
+            }
+        });
+
 
         recycler = findViewById(R.id.recycler);
         db = new DBHelper(this);

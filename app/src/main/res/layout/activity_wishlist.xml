@@ -142,13 +142,14 @@
         <!--            app:layout_constraintStart_toStartOf="parent" />-->
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:theme="@style/BottomNavigationStyle"
             app:itemRippleColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
 
+            app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/bottom_nav_menu" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
