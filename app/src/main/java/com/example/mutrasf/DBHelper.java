@@ -420,5 +420,12 @@ public class DBHelper extends SQLiteOpenHelper {
         return userId;
     }
 
+    //Search my reservations
+    public Cursor searchReservationByName(String query) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "SELECT * FROM " + TABLE_RESERVATION + " WHERE " + COLUMN_USERID + " LIKE '%" + query + "%'";
+        return db.rawQuery(queryString, null);
+    }
+
 
 }

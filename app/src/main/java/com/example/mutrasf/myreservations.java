@@ -19,7 +19,11 @@ package com.example.mutrasf;
         import android.view.View;
         import android.widget.Button;
         import android.widget.ImageView;
+        import android.widget.EditText;
         import android.widget.Toast;
+        import android.text.TextWatcher;
+        import android.text.Editable;
+
 
         import java.util.ArrayList;
 
@@ -39,6 +43,8 @@ public class myreservations extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myreservations);
 
+        EditText searchText = findViewById(R.id.searchtext);
+
         recycler = findViewById(R.id.recycler);
         db = new DBHelper(this);
         name = new ArrayList<>();
@@ -54,6 +60,22 @@ public class myreservations extends AppCompatActivity {
         recycler.setLayoutManager(gridLayoutManager);
 
         displayData();
+        searchText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String query = s.toString().trim();
+                searchMyReservations(query);
+            }
+        });
+
     }
 
     private void displayData() {
@@ -80,5 +102,37 @@ public class myreservations extends AppCompatActivity {
                 }
             }
         }
+    }
+    // search my reservations:
+
+
+    private void searchMyReservations(String query) {
+        Cursor cursor = db.searchReservationByName(query);
+
+        if (cursor.getCount() == 0) {
+            Toast.makeText(this, "No reservations found", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Clear the lists to avoid duplicates
+        id.clear();
+        name.clear();
+        date.clear();
+        time.clear();
+
+        // Process the search results
+        while (cursor.moveToNext()) {
+            try {
+                id.add(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_RESERVEDID)));
+                name.add(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USERID)).concat(" "));
+                date.add(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATE)));
+                time.add(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TIME)));
+            } catch (Exception e) {
+                // Handle the exception
+            }
+        }
+
+        // Notify the adapter about the changes in the data
+        adapter.notifyDataSetChanged();
     }
 }
