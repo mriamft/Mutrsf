@@ -235,6 +235,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+
     // When log in, to check matching password with phone number
     public boolean checkPassword(String phoneNumber, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
