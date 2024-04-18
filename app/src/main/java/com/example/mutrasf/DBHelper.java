@@ -20,17 +20,15 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_FOODTRUCK_NAME = "FOODTRUCK_Name";
     public static final String COLUMN_FOODTRUCK_CATEGORY = "FOODTRUCK_Category";
     public static final String COLUMN_FOODTRUCK_DESCRIPTION= "FOODTRUCK_Decsribtion";
-    //public static final String COLUMN_FOODTRUCK_PHOTO = "img";
     public static final String COLUMN_FOODTRUCK_PRICE = "FOODTRUCK_Price";
     public static final String COLUMN_CONTACT_PHONE = "Contact_phone";
 
 
-    // PriceContactimg table and its columns -To have good performance when retrieving into PriceContactimg Page
+    // Wishlist table and its columns -To have good performance when retrieving into Wishlist Page
     public static final String TABLE_WISHLIST = "Wishlist";
     public static final String COLUMN_WISHLIST_ID = "ID";
     public static final String COLUMN_FOODTRUCK_ID = "FoodTruckId"; // referring to the FoodTruck Id in FOODTRUCK table to know which food truck is in PriceContactimg
     public static final String COLUMN_FOODWISHLIST_NAME = "FoodTruckName";
-    public static final String COLUMN_FOODWISHLIST_PHOTO = "FoodTruckPhoto";
 
 
     // User table and its columns
@@ -73,7 +71,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 + COLUMN_FOODTRUCK_NAME + " TEXT,"
                 + COLUMN_FOODTRUCK_CATEGORY + " TEXT,"
                 + COLUMN_FOODTRUCK_DESCRIPTION + " TEXT,"
-                //+ COLUMN_FOODTRUCK_PHOTO + " BLOB,"
                 +COLUMN_FOODTRUCK_PRICE +" FLOAT,"
                 + COLUMN_CONTACT_PHONE + " INTEGER"
                 + ")";
@@ -85,11 +82,6 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_FOODTRUCK_NAME, "churros house");
         values.put(COLUMN_FOODTRUCK_CATEGORY, "Coffee");
         values.put(COLUMN_FOODTRUCK_DESCRIPTION, "Premium churros, handcrafted and made to order, Vegan friendly");
-        //Get the photo path
-        //String photoFilePath = "res/drawable/logo1.png";
-        // Convert the photo to a array of bytes
-        //byte[] photoData = getPhotoData(photoFilePath);
-        //values.put(COLUMN_FOODTRUCK_PHOTO, photoData);
         values.put(COLUMN_FOODTRUCK_PRICE, 1000);
         values.put(COLUMN_CONTACT_PHONE, 530826614);
         DB.insert(TABLE_FOODTRUCK, null, values);
@@ -99,11 +91,6 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_FOODTRUCK_NAME, "Dominos");
         values.put(COLUMN_FOODTRUCK_CATEGORY, "Pizza");
         values.put(COLUMN_FOODTRUCK_DESCRIPTION, "The largest pizza company in the world!");
-        //Get the photo path
-        //String photoFilePath2 = "res/drawable/dominos.jpg";
-        // Convert the photo to a array of bytes
-        //byte[] photoData2 = getPhotoData(photoFilePath2);
-        //values.put(COLUMN_FOODTRUCK_PHOTO, photoData2);
         values.put(COLUMN_FOODTRUCK_PRICE, 1350);
         values.put(COLUMN_CONTACT_PHONE, 506533752);
         DB.insert(TABLE_FOODTRUCK, null, values);
@@ -113,11 +100,6 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_FOODTRUCK_NAME, "Shawermer");
         values.put(COLUMN_FOODTRUCK_CATEGORY, "Sandwich");
         values.put(COLUMN_FOODTRUCK_DESCRIPTION, "Middle Eastern quick-service restaurant chain specializing in Shawarma");
-        //Get the photo path
-        //String photoFilePath3 = "res/drawable/shawermer.jpeg";
-        // Convert the photo to a array of bytes
-        //byte[] photoData3 = getPhotoData(photoFilePath3);
-        //values.put(COLUMN_FOODTRUCK_PHOTO, photoData3);
         values.put(COLUMN_FOODTRUCK_PRICE, 2000);
         values.put(COLUMN_CONTACT_PHONE, 555419841);
         DB.insert(TABLE_FOODTRUCK, null, values);
@@ -127,11 +109,6 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_FOODTRUCK_NAME, "Rose INC");
         values.put(COLUMN_FOODTRUCK_CATEGORY, "Coffee");
         values.put(COLUMN_FOODTRUCK_DESCRIPTION, "The package of ROSE INC offers: Classic Black Coffee, Creamy Cappuccino, Rich Mocha, Iced Coffee Delights, Seasonal Specials.");
-        //Get the photo path
-        //String photoFilePath4 = "res/drawable/roseinc.jpeg";
-        // Convert the photo to a array of bytes
-        //byte[] photoData4 = getPhotoData(photoFilePath4);
-        //values.put(COLUMN_FOODTRUCK_PHOTO, photoData4);
         values.put(COLUMN_FOODTRUCK_PRICE, 2500);
         values.put(COLUMN_CONTACT_PHONE, 530984476);
         DB.insert(TABLE_FOODTRUCK, null, values);
@@ -141,11 +118,6 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_FOODTRUCK_NAME, "maestroPizza");
         values.put(COLUMN_FOODTRUCK_CATEGORY, "Pizza");
         values.put(COLUMN_FOODTRUCK_DESCRIPTION, "Best Saudi resturant serving pizza!");
-        //Get the photo path
-        //String photoFilePath5 = "res/drawable/maestropizza.jpeg";
-        // Convert the photo to a array of bytes
-        //byte[] photoData5 = getPhotoData(photoFilePath5);
-        //values.put(COLUMN_FOODTRUCK_PHOTO, photoData5);
         values.put(COLUMN_FOODTRUCK_PRICE, 990);
         values.put(COLUMN_CONTACT_PHONE, 552340975);
         DB.insert(TABLE_FOODTRUCK, null, values);
@@ -155,7 +127,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 + COLUMN_WISHLIST_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_FOODTRUCK_ID + " INTEGER,"
                 + COLUMN_FOODWISHLIST_NAME + " TEXT,"
-                + COLUMN_FOODWISHLIST_PHOTO + " BLOB,"
                 + "FOREIGN KEY(" + COLUMN_FOODTRUCK_ID + ") REFERENCES " + TABLE_FOODTRUCK + "(" + COLUMN_ID + ")"
                 + ")";
         DB.execSQL(createWishlistTableQuery);
@@ -273,7 +244,6 @@ public class DBHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(COLUMN_FOODTRUCK_ID, foodTruckId);
             values.put(COLUMN_FOODWISHLIST_NAME, foodTruckName);
-            values.put(COLUMN_FOODWISHLIST_PHOTO, foodTruckPhoto);
 
             long result = db.insert(TABLE_WISHLIST, null, values);
             db.close();
@@ -296,44 +266,8 @@ public class DBHelper extends SQLiteOpenHelper {
         return rowsDeleted > 0;
     }
 
-    // convert the photo to array byte to store it in the food truck table
-    private byte[] getPhotoData(String photoFilePath) {
-        byte[] photoData = null;
-        // convert the photo into a Bitmap
-        Bitmap photoBitmap = BitmapFactory.decodeFile(photoFilePath);
-        // convert the Bitmap to a byte array
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        photoBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        photoData = stream.toByteArray();
-        //return the photo as array of byte to store it in Mutraf database
-        return photoData;
-    }
-
     // Methods to retrieve the data from database
     // retrieve All foodtrucks
-    public List<FoodTruckObject> getAllFoodTrucks() {
-        List<FoodTruckObject> foodTrucks = new ArrayList<>();
-        String queryString =  "SELECT * FROM " + TABLE_FOODTRUCK;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(queryString, null);
-        if(cursor.moveToFirst()){
-            do{ //index based on the foodtruck table
-                int id = cursor.getInt(0); // FoodTruck id
-                String name = cursor.getString(1); // FoodTruck name
-                String category = cursor.getString(2); // FoodTruck category
-                String description = cursor.getString(3); // FoodTruck description
-                int phoneNumber = cursor.getInt(4); // FoodTruck phoneNumber
-                float price = cursor.getFloat(5); // FoodTruck price
-                byte[] photoBytes = cursor.getBlob(6); // FoodTruck photo as byte array
-                Bitmap photo = BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.length); // FoodTruck photo
-                FoodTruckObject foodTruck = new FoodTruckObject(id, name, category, description, phoneNumber, price, photo);
-                foodTrucks.add(foodTruck);
-            }while (cursor.moveToNext());
-        }
-        cursor.close();
-        db.close();
-        return foodTrucks;
-    }
 
     public Cursor getFoodTrucks() {
 
@@ -343,24 +277,6 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // retrieve All reservations
-    public List<ReservationObject> getAllReservation(int userID) {
-        List<ReservationObject> reservations = new ArrayList<>();
-        SQLiteDatabase DB = this.getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_RESERVATION + " WHERE " + COLUMN_USERID + "=?";
-        Cursor cursor = DB.rawQuery(query, new String[]{String.valueOf(userID)});
-        if (cursor.moveToFirst()) {
-            do { //index based on the reservation table
-                int reservationId = cursor.getInt(0); // reservation Id
-                String time = cursor.getString(1); // reservation time
-                String date = cursor.getString(2); // reservation date
-                int foodTruckId = cursor.getInt(3); // Food truck Id refers to the truck in the food truck table to know which truck is reserved
-                ReservationObject reservation = new ReservationObject(reservationId, time, date, foodTruckId, userID);
-                reservations.add(reservation);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return reservations;
-    }
 
     public Cursor getMYreservation(int userId) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -393,6 +309,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return foodTrucksWishList;
     }
+
     // retrieve user name to present it in the dashboard page
     public String GetUserName(int userID){
         SQLiteDatabase DB = this.getReadableDatabase();

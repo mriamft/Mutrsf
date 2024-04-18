@@ -20,19 +20,10 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
 
 
     private Context context;
-    private ArrayList name,  date , time, photo, id;
+    private ArrayList name,  date , time, id;
 
     private OnBtnClicked listener;
 
-
-    /*public TruckAdapter(Context context, ArrayList name, ArrayList date, ArrayList photo, ArrayList time, ArrayList id) {
-        this.context = context;
-        this.name = name;
-        this.date = date;
-        this.photo = photo;
-        this.time = time;
-        this.id = id;
-    }*/
 
     public ReservationAdapter(Context context, ArrayList name, ArrayList date, ArrayList time, ArrayList id) {
         this.context = context;
@@ -62,9 +53,6 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
         holder.name.setText(String.valueOf(name.get(position)));
         holder.date.setText(String.valueOf(date.get(position)));
         holder.time.setText(String.valueOf(time.get(position)));
-        /*byte [] convert = (byte[]) photo.get(position);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(convert,0,convert.length);
-        holder.photo.setImageBitmap(bitmap);*/
     }
 
     @Override
@@ -74,7 +62,6 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
 
     public class Holder extends RecyclerView.ViewHolder {
         TextView name, date, time;
-        //ImageView photo;
 
 
         public Holder(@NonNull View itemView,OnBtnClicked onBtnClicked) {
@@ -82,7 +69,6 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
             name = itemView.findViewById(R.id.TextName);
             date = itemView.findViewById(R.id.TextDate);
             time= itemView.findViewById(R.id.TextTime);
-            //photo = itemView.findViewById(R.id.Vimage2);
 
 
         }
