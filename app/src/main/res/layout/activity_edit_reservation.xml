@@ -45,7 +45,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <CalendarView
-        android:id="@+id/calendarView"
+        android:id="@+id/calendarView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="44dp"
@@ -77,13 +77,13 @@
         android:text="choose new date"
         android:textColor="#673AB7"
         android:textSize="28sp"
-        app:layout_constraintBottom_toTopOf="@+id/calendarView"
+        app:layout_constraintBottom_toTopOf="@+id/calendarView1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.472"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextClock
-        android:id="@+id/textClock2"
+        android:id="@+id/textClock22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -96,7 +96,7 @@
         app:layout_constraintTop_toBottomOf="@+id/NewTime" />
 
     <Button
-        android:id="@+id/confirmtimebtn"
+        android:id="@+id/confirmtimebtnn"
         android:layout_width="198dp"
         android:layout_height="50dp"
         android:layout_marginTop="670dp"

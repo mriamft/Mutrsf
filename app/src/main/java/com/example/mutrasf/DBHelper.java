@@ -360,5 +360,15 @@ public class DBHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    public void editReservation(int reservationId, String newTime, String newDate) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TIME, newTime);
+        values.put(COLUMN_DATE, newDate);
+
+        db.update(TABLE_RESERVATION, values, COLUMN_ID + " = ?", new String[]{String.valueOf(reservationId)});
+        db.close();
+    }
+
 
 }
