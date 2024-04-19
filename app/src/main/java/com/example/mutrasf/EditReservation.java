@@ -47,9 +47,7 @@ public class EditReservation extends AppCompatActivity {
                 String newDate = convertMillisToDate(newDateMillis);
 
 
-                dbHelper.editReservation(reservationId,
-                        newTime,
-                        newDate);
+                //dbHelper.editReservation(reservationId, newTime,newDate);
 
 
                 Toast.makeText(EditReservation.this, "Reservation updated successfully", Toast.LENGTH_SHORT).show();

@@ -220,17 +220,17 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // edit reservation
-    public boolean editReservation(int reservationId, String time, String date) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_TIME, time);
-        values.put(COLUMN_DATE, date);
+    //public boolean editReservation(int reservationId, String time, String date) {
+        //SQLiteDatabase db = this.getWritableDatabase();
+       // ContentValues values = new ContentValues();
+       // values.put(COLUMN_TIME, time);
+       // values.put(COLUMN_DATE, date);
 
-        int rowsUpdated = db.update(TABLE_RESERVATION, values, COLUMN_RESERVEDID + "=?", new String[]{String.valueOf(reservationId)});
-        db.close();
+      //  int rowsUpdated = db.update(TABLE_RESERVATION, values, COLUMN_RESERVEDID + "=?", new String[]{String.valueOf(reservationId)});
+      //  db.close();
         // check if the updating was successful or not
-        return rowsUpdated > 0;
-    }
+      //  return rowsUpdated > 0;
+    //}
 
     // Add Food truck to wishlist table
     public boolean addToWishlist(int foodTruckId) {
