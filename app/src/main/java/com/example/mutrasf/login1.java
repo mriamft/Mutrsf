@@ -21,7 +21,7 @@ public class login1 extends AppCompatActivity {
 
         username = (EditText) findViewById(R.id.username1);
         password = (EditText) findViewById(R.id.password);
-        register = (Button) findViewById(R.id.btnsignin1);
+        register = (Button) findViewById(R.id.confirmtimebtn);
         DB = new DBHelper(this);
 
         register.setOnClickListener(new View.OnClickListener() {

@@ -345,5 +345,20 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.rawQuery(queryString, null);
     }
 
+    public boolean createReservation(String reservationId, String selectedTime, String selectedDate, String truckId, String userId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("reservation_id", reservationId);
+        values.put("selected_time", selectedTime);
+        values.put("selected_date", selectedDate);
+        values.put("truck_id", truckId);
+        values.put("user_id", userId);
+
+        long result = db.insert("reservations", null, values);
+        db.close();
+
+        return result != -1;
+    }
+
 
 }
