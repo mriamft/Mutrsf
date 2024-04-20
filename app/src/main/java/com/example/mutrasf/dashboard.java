@@ -107,7 +107,7 @@ public class dashboard extends AppCompatActivity {
 
                 // Start TruckProfileActivity and pass the truck name as an extra
                 Intent intent = new Intent(dashboard.this, TruckProfileActivity.class);
-                intent.putExtra("Dominos", truckName);
+                intent.putExtra("TRUCK_NAME", truckName);
                 startActivity(intent);
             }
         }));
