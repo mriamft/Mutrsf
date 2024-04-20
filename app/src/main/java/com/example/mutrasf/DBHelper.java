@@ -369,6 +369,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.update(TABLE_RESERVATION, values, COLUMN_ID + " = ?", new String[]{String.valueOf(reservationId)});
         db.close();
     }
+    public Cursor getTruckDetailsByName(String truckName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_FOODTRUCK + " WHERE " + COLUMN_FOODTRUCK_NAME + "=?";
+        return db.rawQuery(query, new String[]{truckName});
+    }
 
 
 }

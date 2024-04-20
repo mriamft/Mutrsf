@@ -1,15 +1,16 @@
 package com.example.mutrasf;
 
-import static com.example.mutrasf.DBHelper.COLUMN_ID;
 import static com.example.mutrasf.DBHelper.COLUMN_CONTACT_PHONE;
 import static com.example.mutrasf.DBHelper.COLUMN_FOODTRUCK_NAME;
 import static com.example.mutrasf.DBHelper.COLUMN_FOODTRUCK_PRICE;
+import static com.example.mutrasf.DBHelper.COLUMN_ID;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.database.Cursor;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,15 +57,20 @@ public class dashboard extends AppCompatActivity {
                     startActivity(new Intent(dashboard.this, myreservations.class));
                     return true;
                 } else if (item.getItemId() == R.id.logout) {
-                    // Handle logout menu item click
-                    // Perform logout actions
+                    SharedPreferences preferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.clear();
+                    editor.apply();
+
+                    startActivity(new Intent(dashboard.this, MainActivity.class));
+                    finish();
                     return true;
+
                 }
                 return false;
 
             }
         });
-
 
         recycler = findViewById(R.id.recycler);
         db = new DBHelper(this);
@@ -77,10 +84,9 @@ public class dashboard extends AppCompatActivity {
             String userName1 = db.GetUserName(userName);
             userNameTextView = findViewById(R.id.HelloText);
             userNameTextView.setText("Hi " + userName1);
-        }else {
+        } else {
             userNameTextView2 = findViewById(R.id.HelloText2);
             userNameTextView2.setText("Hi ");
-
         }
 
         adapter = new TruckAdapter(this, name, price, phone, id);
@@ -89,6 +95,22 @@ public class dashboard extends AppCompatActivity {
         recycler.setLayoutManager(gridLayoutManager);
 
         displayData();
+
+        // Set click listener for RecyclerView items
+        recycler.addOnItemTouchListener(new RecyclerItemClickListener(this, recycler, new RecyclerItemClickListener.OnItemClickListener() {
+
+
+            @Override
+            public void onItemClick(View view, int position) {
+                // Get the truck name at the clicked position
+                String truckName = name.get(position);
+
+                // Start TruckProfileActivity and pass the truck name as an extra
+                Intent intent = new Intent(dashboard.this, TruckProfileActivity.class);
+                intent.putExtra("Dominos", truckName);
+                startActivity(intent);
+            }
+        }));
     }
 
     private void displayData() {
@@ -112,5 +134,4 @@ public class dashboard extends AppCompatActivity {
             }
         }
     }
-
 }

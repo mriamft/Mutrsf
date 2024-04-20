@@ -1,99 +1,59 @@
 package com.example.mutrasf;
 
-import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Random;
-
 public class TruckProfileActivity extends AppCompatActivity {
-    private Button availableDateTimeButton;
-    private Button reserveButton;
 
-    private String selectedTime;
-    private String selectedDate;
+    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.truckprofile);
 
-        availableDateTimeButton = findViewById(R.id.availableDateTimeButton);
-        reserveButton = findViewById(R.id.reservebtn);
+        // Initialize DBHelper
+        dbHelper = new DBHelper(this);
 
-        availableDateTimeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TruckProfileActivity.this, AvailableTimeDateActivity.class);
-                startActivityForResult(intent, 1);
-            }
-        });
+        // Get truck name passed from dashboard activity
+        String truckName = getIntent().getStringExtra("TRUCK_NAME");
 
-        reserveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        // Retrieve truck details from the database
+        Cursor cursor = dbHelper.getTruckDetailsByName(truckName);
 
-                createReservation();
-            }
-        });
-    }
+        if (cursor != null && cursor.moveToFirst()) {
+            // Extract truck details from the cursor
+            String category = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_FOODTRUCK_CATEGORY));
+            String description = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_FOODTRUCK_DESCRIPTION));
+            float price = cursor.getFloat(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_FOODTRUCK_PRICE));
+            int phoneNumber = cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_CONTACT_PHONE));
 
-    private void createReservation() {
+            // Display truck details in the UI
+            TextView categoryTextView = findViewById(R.id.cat);
+            TextView descriptionTextView = findViewById(R.id.textView22);
+            TextView priceTextView = findViewById(R.id.textView11);
+            TextView phoneNumberTextView = findViewById(R.id.textView21);
 
-        String reservationId = generateReservationId();
-        String selectedTime = getSelectedTime();
-        String selectedDate = getSelectedDate();
-        String truckId = getTruckId();
-        String userId = getUserId();
+            categoryTextView.setText(category);
+            descriptionTextView.setText(description);
+            priceTextView.setText(String.valueOf(price));
+            phoneNumberTextView.setText(String.valueOf(phoneNumber));
 
-        DBHelper dbHelper = new DBHelper(this);
-        boolean isReservationCreated = dbHelper.createReservation(reservationId, selectedTime, selectedDate, truckId, userId);
-        if (isReservationCreated) {
-
-            Toast.makeText(this, "Reservation created successfully", Toast.LENGTH_SHORT).show();
-            finish();
         } else {
 
-            Toast.makeText(this, "Failed to create reservation", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Truck not found", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            selectedDate = data.getStringExtra("selectedDate");
-            selectedTime = data.getStringExtra("selectedTime");
 
 
+        if (cursor != null) {
+            cursor.close();
         }
-    }
-
-    private String getSelectedTime() {
-        return selectedTime;
-    }
-
-    private String getSelectedDate() {
-        return selectedDate;
-    }
-
-
-    private String generateReservationId() {
-        long timestamp = System.currentTimeMillis();
-        int random = new Random().nextInt(10000);
-        return "RES" + timestamp + random;
-    }
-
-
-    private String getTruckId() {
-        return "TRUCK123"; //don't forget
-    }
-
-    private String getUserId() {
-        return "USER456"; //don't forget
     }
 }

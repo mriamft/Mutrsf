@@ -11,6 +11,7 @@ package com.example.mutrasf;
         import androidx.recyclerview.widget.LinearLayoutManager;
         import androidx.recyclerview.widget.RecyclerView;
         import android.content.Intent;
+        import android.content.SharedPreferences;
         import android.view.MenuItem;
         import androidx.annotation.NonNull;
         import androidx.appcompat.app.AppCompatActivity;
@@ -63,9 +64,13 @@ public class myreservations extends AppCompatActivity {
                     startActivity(new Intent(myreservations.this, myreservations.class));
                     return true;
                 } else if (item.getItemId() == R.id.logout) {
-                    // Handle logout menu item click
-                    // Perform logout actions
-                    return true;
+                    SharedPreferences preferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.clear();
+                    editor.apply();
+
+                    startActivity(new Intent(myreservations.this, MainActivity.class));
+                    finish();
                 }
                 return false;
 
