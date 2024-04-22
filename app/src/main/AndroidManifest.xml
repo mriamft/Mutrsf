@@ -13,13 +13,13 @@
         android:theme="@style/Theme.Mutrasf"
         tools:targetApi="31">
         <activity
+            android:name=".truckprofile"
+            android:exported="false" />
+        <activity
             android:name=".EditReservation"
             android:exported="false" />
         <activity
             android:name=".myreservations"
-            android:exported="false" />
-        <activity
-            android:name=".profile"
             android:exported="false" />
         <activity
             android:name=".wishlist"

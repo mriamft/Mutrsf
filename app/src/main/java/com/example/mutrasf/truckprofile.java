@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class TruckProfileActivity extends AppCompatActivity {
+public class truckprofile extends AppCompatActivity {
 
     private DBHelper dbHelper;
 

@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -103,12 +104,18 @@ public class dashboard extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 // Get the truck name at the clicked position
-                String truckName = name.get(position);
+                try {
+                    String truckName = name.get(position);
 
-                // Start TruckProfileActivity and pass the truck name as an extra
-                Intent intent = new Intent(dashboard.this, TruckProfileActivity.class);
-                intent.putExtra("TRUCK_NAME", truckName);
-                startActivity(intent);
+
+                    // Start TruckProfileActivity and pass the truck name as an extra
+                    Intent intent = new Intent(dashboard.this, truckprofile.class);
+                    intent.putExtra("TRUCK_NAME", truckName);
+                    startActivity(intent);
+                }catch(Exception e){
+
+                    Toast.makeText(dashboard.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         }));
     }
