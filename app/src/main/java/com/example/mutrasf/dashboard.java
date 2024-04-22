@@ -109,7 +109,7 @@ public class dashboard extends AppCompatActivity {
 
 
                     // Start TruckProfileActivity and pass the truck name as an extra
-                    Intent intent = new Intent(dashboard.this, truckprofile.class);
+                    Intent intent = new Intent(dashboard.this, TruckProfileActivity.class);
                     intent.putExtra("TRUCK_NAME", truckName);
                     startActivity(intent);
                 }catch(Exception e){

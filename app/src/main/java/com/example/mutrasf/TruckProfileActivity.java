@@ -14,25 +14,25 @@ public class TruckProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_truckprofile);
 
-        // Initialize DBHelper
+        
         dbHelper = new DBHelper(this);
 
-        // Get truck name passed from dashboard activity
+
         String truckName = getIntent().getStringExtra("TRUCK_NAME");
 
-        // Retrieve truck details from the database
+
         Cursor cursor = dbHelper.getTruckDetailsByName(truckName);
 
         if (cursor != null && cursor.moveToFirst()) {
-            // Extract truck details from the cursor
+
             String category = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_FOODTRUCK_CATEGORY));
             String description = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_FOODTRUCK_DESCRIPTION));
             float price = cursor.getFloat(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_FOODTRUCK_PRICE));
             int phoneNumber = cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.COLUMN_CONTACT_PHONE));
 
-            // Display truck details in the UI
+            //truck info
             TextView categoryTextView = findViewById(R.id.cat);
             TextView descriptionTextView = findViewById(R.id.textView22);
             TextView priceTextView = findViewById(R.id.textView11);
